@@ -10,7 +10,7 @@ export default function AppRouter() {
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-          <Route path='/' element={<IndexPage />} />
+          <Route path='/' element={<IndexPage />} index />
           <Route path='/favoritos' element={<FavouritesPage />} />
         </Route>
       </Routes>

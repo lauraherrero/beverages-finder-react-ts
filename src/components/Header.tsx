@@ -1,3 +1,5 @@
+import { Link, NavLink } from 'react-router-dom';
+
 
 export const Header = () => {
   return (
@@ -7,7 +9,10 @@ export const Header = () => {
           <div>
             <img className="w-32" src="/logo.svg" alt="logotipo cocktail" />
           </div>
-          <nav></nav>
+          <nav className='flex gap-4'>
+            <Link className='text-white uppercase font-bold' to="/">Inicio</Link>
+            <Link className='text-white uppercase font-bold' to="/favoritos">Favoritos</Link>
+          </nav>
         </div>
       </div>
     </header>
