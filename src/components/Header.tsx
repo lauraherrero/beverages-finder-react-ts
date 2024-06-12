@@ -1,6 +1,5 @@
 import { useEffect, useMemo } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { createRecipesSlice } from '../stores/recipesSlides';
 import { useAppStore } from '../stores/useAppStore';
 
 
@@ -9,9 +8,12 @@ export const Header = () => {
   const { pathname } = useLocation();
   
   const isHome = useMemo(() => pathname === '/', [pathname]);
-  console.log(isHome);
+  //console.log(isHome);
 
   const fetchCategories = useAppStore((state) => state.fetchCategories);
+  const categories = useAppStore((state) => state.categories.drinks);
+  console.log(categories);
+  
   
   useEffect(() => {fetchCategories()}, [])
     
@@ -49,6 +51,9 @@ export const Header = () => {
                 className='p-3 w-full rounded-lg focus:outline-none'
               >
                 <option value="">--Seleccione--</option>
+                {categories.map(category => (
+                  <option key={category.strCategory}>{category.strCategory}</option>
+                ))}
               </select>
             </div>
             <input type="submit" value="Buscar recetas"

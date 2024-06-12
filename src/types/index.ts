@@ -1,6 +1,4 @@
-export type Category = {}
+import { z } from 'zod';
+import { CategoriesAPIResponseSchema } from '../schema/recipes-schema';
 
-export type recipesSliceTypes = {
-  categories: Category[]
-  fetchCategories: () => Promise<void>
-}
+export type Categories = z.infer<typeof CategoriesAPIResponseSchema>

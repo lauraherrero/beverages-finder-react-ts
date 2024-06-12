@@ -1,11 +1,16 @@
+import { CategoriesAPIResponseSchema } from "../schema/recipes-schema";
+
 export const getCategories = async () => {
-  const url = "www.thecocktaildb.com/api/json/v1/1/list.php?c=list";
+  const url = "https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list";
 
   const resp = await fetch(url);
-  console.log(resp);
-  
-  // const data = await resp.json();
-  // console.log(data);
+  const data = await resp.json()
+
+  const result = CategoriesAPIResponseSchema.safeParse(data);
+
+  if(result.success) {
+    return result.data;
+  }
   
   
 }
