@@ -1,5 +1,7 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
+import { createRecipesSlice } from '../stores/recipesSlides';
+import { useAppStore } from '../stores/useAppStore';
 
 
 export const Header = () => {
@@ -8,11 +10,13 @@ export const Header = () => {
   
   const isHome = useMemo(() => pathname === '/', [pathname]);
   console.log(isHome);
+
+  const fetchCategories = useAppStore((state) => state.fetchCategories);
   
-  
+  useEffect(() => {fetchCategories()}, [])
     
   return (
-    <header className="bg-slate-800">
+    <header className={isHome ? 'bg-header bg-center bg-cover' : 'bg-slate-800'}>
       <div className="mx-auto container px-5 py-16">
         <div className="flex justify-between items-center">
           <div>
