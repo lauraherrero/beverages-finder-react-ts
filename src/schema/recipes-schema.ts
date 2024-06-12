@@ -7,3 +7,9 @@ export const CategoriesAPIResponseSchema = z.object({
     })
   ),
 });
+
+
+export const RecipesSchema = z.object({
+  category: z.string(),
+  ingredient: z.string()
+})

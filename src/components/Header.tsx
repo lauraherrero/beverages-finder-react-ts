@@ -1,6 +1,7 @@
-import { useEffect, useMemo } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useAppStore } from '../stores/useAppStore';
+import { Recipes } from '../types';
 
 
 export const Header = () => {
@@ -12,8 +13,23 @@ export const Header = () => {
 
   const fetchCategories = useAppStore((state) => state.fetchCategories);
   const categories = useAppStore((state) => state.categories.drinks);
-  console.log(categories);
+  //console.log(categories);
+
+  const [recipe, setRecipe] = useState<Recipes>({
+    category: '',
+    ingredient: ''
+  });
   
+  const handleChange = (e: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>) => {
+    setRecipe({
+      ...recipe,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const handleSubmit = (e: FormEvent<HTMLInputElement>) => {
+    e.preventDefault();
+  }
   
   useEffect(() => {fetchCategories()}, [])
     
@@ -41,6 +57,8 @@ export const Header = () => {
                 id="ingredient" 
                 className='p-3 w-full rounded-lg focus:outline-none'
                 placeholder='Nombre o Ingrediente. Ej: Vodka, Tequila, Café...'
+                onChange={handleChange}
+                value={recipe.ingredient}
               />
             </div>
             <div className='space-y-4'>
@@ -49,15 +67,18 @@ export const Header = () => {
                 name="category" 
                 id="category" 
                 className='p-3 w-full rounded-lg focus:outline-none'
+                onChange={handleChange}
+                value={recipe.category}
               >
                 <option value="">--Seleccione--</option>
                 {categories.map(category => (
-                  <option key={category.strCategory}>{category.strCategory}</option>
+                  <option key={category.strCategory} value={category.strCategory}>{category.strCategory}</option>
                 ))}
               </select>
             </div>
             <input type="submit" value="Buscar recetas"
               className='cursor-pointer bg-orange-700 hover:bg-orange-800 text-white font-extrabold w-full p-2 rounded-lg uppercase'
+              onSubmit={handleSubmit}
             />
           </form>
         )}
