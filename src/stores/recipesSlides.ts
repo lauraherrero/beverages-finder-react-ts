@@ -26,6 +26,8 @@ export const createRecipesSlice: StateCreator<recipesSliceTypes> = (set) => ({
   },
   searchRecipes: async (recipes) => {
     const drinks = await getRecipes(recipes)
+    console.log(drinks);
+    
     set(() => ({
       drinks
     }))
