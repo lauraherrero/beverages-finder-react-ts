@@ -1,8 +1,9 @@
 import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useAppStore } from '../stores/useAppStore';
-import { Recipes } from '../types';
+import { Recipes, SelectRecipe } from '../types';
 import { ErrorMessage } from './ErrorMessage';
+import { getSelectRecipe } from '../services/RecipesService';
 
 
 export const Header = () => {
@@ -15,6 +16,7 @@ export const Header = () => {
   const fetchCategories = useAppStore((state) => state.fetchCategories);
   const categories = useAppStore((state) => state.categories.drinks);
   const searchRecipes = useAppStore((state) => state.searchRecipes);
+  
 
 
   const [recipe, setRecipe] = useState<Recipes>({
@@ -22,12 +24,25 @@ export const Header = () => {
     category: ''
   });
 
+  const [selectedRecipe, setSelectedRecipe] = useState<SelectRecipe>({
+    idDrink: '',
+    strDrink: '',
+    strDrinkThumb: '',
+    strCategory: '',
+    strInstructions: '',
+    strAlcoholic: '',
+    strGlass: ''
+  })
+
   const [error, setError] = useState('');
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>) => {
     setRecipe({
       ...recipe,
       [e.target.name]: e.target.value
+    })
+    setSelectedRecipe({
+      ...selectedRecipe
     })
   }
 

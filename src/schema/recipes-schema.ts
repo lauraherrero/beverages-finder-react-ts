@@ -20,3 +20,15 @@ export const DrinkAPIResponseSchema = z.object({
 });
 
 export const DrinksAPIResponseSchema = z.array(DrinkAPIResponseSchema);
+
+export const SelecRecipeSchema = z.object({
+  idDrink: z.string(),
+  strDrink: z.string(),
+  strDrinkThumb: z.string(),
+  strCategory: z.string(),
+  strInstructions: z.string(),
+  strAlcoholic: z.string(),
+  strGlass: z.string()
+})
+
+export const SelecRecipesSchema = z.array(SelecRecipeSchema);
