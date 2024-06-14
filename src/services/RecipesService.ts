@@ -1,5 +1,5 @@
-import { CategoriesAPIResponseSchema, DrinksAPIResponseSchema } from "../schema/recipes-schema";
-import { Recipes, SelectRecipe } from "../types";
+import { CategoriesAPIResponseSchema, DrinksAPIResponseSchema, SelecRecipeSchema } from "../schema/recipes-schema";
+import { Drink, Recipes } from "../types";
 
 export const getCategories = async () => {
   const url = "https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list";
@@ -28,10 +28,17 @@ export const getRecipes = async (recipe: Recipes) => {
   } 
 };
 
-export const getSelectRecipe = async (SelectRecipe: SelectRecipe ) => {
-  const url = `www.thecocktaildb.com/api/json/v1/1/lookup.php?${SelectRecipe.idDrink}`
+export const getRecipesById = async(id: Drink['idDrink']) => {
+  const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
   const resp = await fetch(url);
   const data = await resp.json();
-  console.log(data);
+  //console.log(data);
+
+  const result = SelecRecipeSchema.safeParse(data.drinks[0]);
+  if(result.success) {
+    return result.data
+  }
+  
+  
   
 }
