@@ -38,5 +38,6 @@ export const SelecRecipeSchema = z.object({
   strMeasure4: z.string().nullable(),
   strMeasure5: z.string().nullable(),
   strMeasure6: z.string().nullable(),
-})
+});
+
 

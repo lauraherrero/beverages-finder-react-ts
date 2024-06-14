@@ -8,6 +8,7 @@ export const Modal = () => {
   const modal = useAppStore((state) => state.modal);
   const closeModal = useAppStore((state) => state.closeModal);
   const selectedRecipe = useAppStore((state) => state.selectedRecipe);
+  const handleClickFavourite = useAppStore((state) => state.handleClickFavourite);
 
 
   const renderIngredients = () => {
@@ -68,6 +69,10 @@ export const Modal = () => {
                     Instrucciones
                   </Dialog.Title>
                   <p className='text-lg'>{selectedRecipe.strInstructions}</p>
+                  <div className='mt-5 flex justify-between gap-4'>
+                    <button onClick={closeModal} className='w-full rounded bg-orange-400 p-3 font-bold uppercase hover:bg-gray-500'>Cerrar</button>
+                    <button onClick={() => handleClickFavourite(selectedRecipe)} className='w-full rounded bg-orange-400 p-3 font-bold uppercase hover:bg-yellow-500'>Favorito</button>
+                  </div>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
